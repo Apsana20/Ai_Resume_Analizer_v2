@@ -24,6 +24,7 @@ def create_users_table():
 
     conn.close()
 
+
 def create_reports_table():
 
     conn = sqlite3.connect("database/users.db")
@@ -39,7 +40,8 @@ def create_reports_table():
 
         score REAL,
 
-        skills TEXT
+        skills TEXT,
+
         date TEXT
     )
     """)
@@ -47,6 +49,7 @@ def create_reports_table():
     conn.commit()
 
     conn.close()
+
 def save_report(user_email, score, skills):
 
     conn = sqlite3.connect("database/users.db")

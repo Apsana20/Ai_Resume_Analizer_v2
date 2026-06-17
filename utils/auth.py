@@ -4,10 +4,8 @@ import bcrypt
 
 
 def register_user(name, email, password):
-   
 
     conn = sqlite3.connect("database/users.db")
-    
     cursor = conn.cursor()
 
     hashed_password = bcrypt.hashpw(
@@ -16,7 +14,6 @@ def register_user(name, email, password):
     )
 
     try:
-        
         cursor.execute(
             """
             INSERT INTO users(name,email,password)
@@ -24,13 +21,13 @@ def register_user(name, email, password):
             """,
             (name, email, hashed_password)
         )
-        
 
         conn.commit()
-        
+
     except Exception as e:
         print("Registration error:", e)
         return False
+
     conn.close()
 
     return True

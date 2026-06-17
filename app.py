@@ -63,8 +63,13 @@ def login():
 
             return redirect('/dashboard')
 
-    return render_template('login.html')
+        else:
+            return render_template(
+                'login.html',
+                error="Incorrect email or password."
+            )
 
+    return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

@@ -30,6 +30,11 @@ Login
 </h2>
 
 <form method="POST">
+      {% if error %}
+    <p style="color:red;">
+        {{ error }}
+    </p>
+    {% endif %}
 
 <div class="mb-3">
 
@@ -46,6 +51,7 @@ name="email"
 required>
 
 </div>
+
 
 <div class="mb-3">
 

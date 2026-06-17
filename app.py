@@ -69,16 +69,23 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 
+  
+
     if request.method == 'POST':
+       
 
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
+       
+        success = register_user(name, email, password)
 
-        register_user(name, email, password)
+        if success:
+            return redirect('/login')
+        else:
+            return "Email already exists. Please login."
 
     return render_template('register.html')
-
 
 
 @app.route('/dashboard')

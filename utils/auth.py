@@ -23,10 +23,11 @@ def register_user(name, email, password):
         )
 
         conn.commit()
+        conn.commit()
+        print("User registered successfully")
 
     except Exception as e:
-        print("Registration error:", e)
-        return False
+        return str(e)
 
     conn.close()
 

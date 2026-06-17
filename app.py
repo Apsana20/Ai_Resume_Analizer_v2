@@ -80,11 +80,10 @@ def register():
         print("Registering:", email)
         success = register_user(name, email, password)
         print("Success =", success)
-        if success:
-            return redirect('/login')
+        if success == True:
+             return redirect('/login')
         else:
-            return "Email already exists. Please login."
-
+             return str(success)
     return render_template('register.html')
 
 

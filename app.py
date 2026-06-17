@@ -242,15 +242,6 @@ def upload():
 
     return render_template('upload.html')
 
-
-
-
-@app.route('/logout')
-def logout():
-
-    session.pop('user', None)
-
-    return redirect('/')
 @app.route('/history')
 def history():
 
@@ -403,6 +394,12 @@ def remove_user(email):
 
     return redirect('/admin')
 
+@app.route('/logout')
+def logout():
+
+    session.pop('user', None)
+
+    return redirect('/login')
 if __name__ == "__main__":
     app.run(debug=True)
 

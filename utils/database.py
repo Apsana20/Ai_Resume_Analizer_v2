@@ -95,28 +95,27 @@ def get_reports(user_email):
 
     return reports
 
-def get_statistics(user_email):
+def get_statistics():
 
     conn = sqlite3.connect("database/users.db")
-
     cursor = conn.cursor()
 
-    cursor.execute(
-        """
-        SELECT COUNT(*),
-               MAX(score),
-               AVG(score)
-        FROM reports
-        WHERE user_email = ?
-        """,
-        (user_email,)
-    )
+    cursor.execute("SELECT COUNT(*) FROM reports")
+    total_reports = cursor.fetchone()[0]
 
-    stats = cursor.fetchone()
+    cursor.execute("SELECT MAX(score) FROM reports")
+    highest_score = cursor.fetchone()[0]
+
+    cursor.execute("SELECT AVG(score) FROM reports")
+    average_score = cursor.fetchone()[0]
 
     conn.close()
 
-    return stats
+    return (
+        total_reports,
+        highest_score if highest_score else 0,
+        average_score if average_score else 0
+    )
 
 def get_analytics(user_email):
 

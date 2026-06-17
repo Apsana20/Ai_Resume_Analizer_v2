@@ -20,7 +20,7 @@ from utils.database import (
 
 
 from utils.auth import register_user, login_user
-
+from utils.database import get_statistics
 from utils.pdf_reader import extract_text_from_pdf
 from utils.skill_extractor import extract_skills
 from utils.matcher import calculate_match

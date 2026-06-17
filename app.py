@@ -78,8 +78,8 @@ def register():
         email = request.form['email']
         password = request.form['password']
         
-        return "POST reached"
-        print("Success =", success)
+        success = register_user(name, email, password)
+       
         if success == True:
              return redirect('/login')
         else:

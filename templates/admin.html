@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0">
+
+    <title>Apsana admin panel</title>
+
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="{{ url_for('static',
+                     filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <h1 class="mb-5">
+
+        👑  Apsana Admin Panel
+
+    </h1>
+    <h5 style="color:green;">
+    Logged in as Administrator:
+    {{ session['user'] }}
+</h5>
+
+    <div class="row mb-5">
+        <div class="row mb-5">
+
+    <div class="col-md-3">
+        <div class="card text-center p-4 bg-primary text-white">
+            <h4>Total Users</h4>
+            <h2>{{ total_users }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-4 bg-success text-white">
+            <h4>Total Reports</h4>
+            <h2>{{ total_reports }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-4 bg-warning text-dark">
+            <h4>Highest ATS</h4>
+            <h2>{{ highest_score }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-4 bg-danger text-white">
+            <h4>Lowest ATS</h4>
+            <h2>{{ lowest_score }}</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+    <div class="card text-center p-4 bg-info text-white">
+        <h4>Average ATS</h4>
+        <h2>{{ average_score }}</h2>
+    </div>
+</div>
+
+</div>
+
+
+    <div class="col-md-6">
+
+        <div class="card text-center p-4"
+             style="background:linear-gradient(135deg,#DDEDEA,#F5FFF7);">
+
+            <h4>
+
+                👥 Total Users
+
+            </h4>
+
+            <h1>
+
+                {{ total_users }}
+
+            </h1>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6">
+
+        <div class="card text-center p-4"
+             style="background:linear-gradient(135deg,#FFF8E7,#FFFFFF);">
+
+            <h4>
+
+                📂 Total Reports
+
+            </h4>
+
+            <h1>
+
+                {{ total_reports }}
+
+            </h1>
+            <a href="/dashboard"
+class="btn btn-success mb-4">
+
+    ← Back to Dashboard
+
+</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+    <!-- Users Table -->
+
+    <div class="row mb-5">
+
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>🏆 Highest ATS Score</h5>
+            <h3>{{ highest_score }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>📉 Lowest ATS Score</h5>
+            <h3>{{ lowest_score }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>📈 Average ATS Score</h5>
+            <h3>{{ average_score }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>📄 Total Reports</h5>
+            <h3>{{ total_reports }}</h3>
+        </div>
+    </div>
+
+</div>
+    
+    <div class="card p-4 mb-5">
+
+<form method="GET" class="mb-3">
+
+    <input
+        type="text"
+        name="search"
+        class="form-control"
+        placeholder="Search by name or email">
+
+</form>
+        <h3>
+
+            👥 Registered Users
+
+        </h3>
+        <a href="/export-users"
+   class="btn btn-success mb-3">
+
+    📊 Export Users Excel
+
+</a>
+
+        <br>
+<table class="table table-hover table-bordered">
+            <thead>
+
+                <tr>
+
+                   <th>Name</th>
+
+                   <th>Email</th>
+
+                   <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for user in users %}
+<tr>
+
+    <td>
+
+        {{ user[0] }}
+
+    </td>
+
+    <td>
+
+        {{ user[1] }}
+
+    </td>
+
+    <td>
+
+        <a href="/delete-user/{{ user[1] }}"
+           class="btn btn-danger">
+
+            Delete
+
+        </a>
+
+    </td>
+
+</tr>
+               
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+<!-- Reports Table -->
+
+<div class="card p-4">
+
+    <h3>
+
+        📊 Resume Reports
+
+    </h3>
+    <a href="/export-reports"
+   class="btn btn-success mb-3">
+
+    📄 Export Reports Excel
+
+</a>
+    <br>
+
+    <table class="table table-striped">
+
+        <thead>
+
+            <tr>
+
+                <th>User Email</th>
+
+                <th>ATS Score</th>
+
+                <th>Date</th>
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for report in reports %}
+
+            <tr>
+
+                <td>
+
+                    {{ report[0] }}
+
+                </td>
+
+                <td>
+    {{ report[1] }} %
+</td>
+
+<td>
+    {{ report[2] }}
+</td>
+
+<td>
+    <a href="/delete-report/{{ report[3] }}"
+       class="btn btn-danger text-white">
+        Delete
+        </a>
+</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
+
+

@@ -60,7 +60,19 @@
             👤 Profile
 
         </a>
+        <h3>Recent Reports</h3>
 
+{% for report in recent_reports %}
+
+<p>
+    Score: {{ report[0] }}
+    <br>
+    Skills: {{ report[1] }}
+</p>
+
+<hr>
+
+{% endfor %}
         <a href="/logout">
 
             🚪 Logout

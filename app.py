@@ -97,6 +97,34 @@ def dashboard():
 
     if 'user' not in session:
         return redirect('/login')
+def get_recent_reports(user_email):
+
+    conn = sqlite3.connect("database/users.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT score, skills
+        FROM reports
+        WHERE user_email = ?
+        ORDER BY id DESC
+        LIMIT 5
+        """,
+        (user_email,)
+    )
+
+    reports = cursor.fetchall()
+
+    conn.close()
+
+    return reports
+
+
+@app.route('/dashboard')
+def dashboard():
+
+    if 'user' not in session:
+        return redirect('/login')    
 
     stats = get_statistics()
 
